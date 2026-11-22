@@ -5,6 +5,7 @@ import { Sidebar } from '@/components/Sidebar'
 import { ChatArea } from '@/components/ChatArea'
 import { SettingsModal } from '@/components/SettingsModal'
 import { WelcomeScreen } from '@/components/WelcomeScreen'
+import { WriteToDiskPanel } from '@/components/WriteToDiskPanel'
 import { useStore } from '@/store'
 import { useEasterEggs } from '@/hooks/useEasterEggs'
 import { useApiAutoDetect } from '@/hooks/useApiAutoDetect'
@@ -22,6 +23,15 @@ export default function Home() {
   } = useStore()
 
   const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [showWriteToDisk, setShowWriteToDisk] = useState(false)
+
+  // Listen for the "open write-to-disk" event the chat header dispatches,
+  // so the panel is hosted at the root where state is held.
+  useEffect(() => {
+    const onOpen = () => setShowWriteToDisk(true)
+    window.addEventListener('g0d:open-write-to-disk', onOpen)
+    return () => window.removeEventListener('g0d:open-write-to-disk', onOpen)
+  }, [])
 
   // Initialize easter eggs
   useEasterEggs()
@@ -36,7 +46,7 @@ export default function Home() {
   // cascade to elements outside <main>
   useEffect(() => {
     const root = document.documentElement
-    root.classList.remove('theme-matrix', 'theme-hacker', 'theme-glyph', 'theme-minimal')
+    root.classList.remove('theme-matrix', 'theme-hacker', 'theme-glyph', 'theme-minimal', 'theme-opencode')
     root.classList.add(`theme-${theme}`)
   }, [theme])
 
@@ -77,6 +87,9 @@ export default function Home() {
       {showSettings && (
         <SettingsModal onClose={() => setShowSettings(false)} />
       )}
+
+      {/* Write-to-Disk batch apply */}
+      <WriteToDiskPanel open={showWriteToDisk} onClose={() => setShowWriteToDisk(false)} />
     </main>
   )
 }

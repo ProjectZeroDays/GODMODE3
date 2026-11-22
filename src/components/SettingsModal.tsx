@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useStore, Theme, MemoryType, DEFAULT_GODMODE_PROMPT } from '@/store'
 import type { TierInfo } from '@/store'
+import { PROVIDERS, type ProviderId } from '@/lib/providers'
 import {
   X,
   Key,
@@ -25,6 +26,7 @@ import {
   Sparkles,
   Plus,
   Edit3,
+  Globe,
   ToggleLeft,
   ToggleRight,
   User,
@@ -54,7 +56,7 @@ interface SettingsModalProps {
   onClose: () => void
 }
 
-type SettingsTab = 'api' | 'prompt' | 'appearance' | 'privacy' | 'liquid' | 'autotune' | 'parseltongue' | 'stm' | 'memory' | 'ultraplinian' | 'consortium' | 'plan' | 'data'
+type SettingsTab = 'api' | 'providers' | 'prompt' | 'appearance' | 'privacy' | 'liquid' | 'autotune' | 'parseltongue' | 'stm' | 'memory' | 'ultraplinian' | 'consortium' | 'plan' | 'data'
 
 export function SettingsModal({ onClose }: SettingsModalProps) {
   const [activeTab, setActiveTab] = useState<SettingsTab>('api')
@@ -90,6 +92,12 @@ export function SettingsModal({ onClose }: SettingsModalProps) {
               label="API Key"
               active={activeTab === 'api'}
               onClick={() => setActiveTab('api')}
+            />
+            <TabButton
+              icon={<Globe className="w-4 h-4" />}
+              label="Providers"
+              active={activeTab === 'providers'}
+              onClick={() => setActiveTab('providers')}
             />
             <TabButton
               icon={<FileText className="w-4 h-4" />}
@@ -168,6 +176,7 @@ export function SettingsModal({ onClose }: SettingsModalProps) {
           {/* Tab content */}
           <div className="flex-1 p-6 overflow-y-auto">
             {activeTab === 'api' && <APIKeyTab />}
+            {activeTab === 'providers' && <ProvidersTab />}
             {activeTab === 'prompt' && <SystemPromptTab />}
             {activeTab === 'autotune' && <AutoTuneTab />}
             {activeTab === 'appearance' && <AppearanceTab />}
@@ -208,6 +217,72 @@ function TabButton({
       {icon}
       {label}
     </button>
+  )
+}
+
+function ProvidersTab() {
+  const { providerId, customProviderUrl, setProviderId, setCustomProviderUrl } = useStore() as any
+  const [localCustomUrl, setLocalCustomUrl] = useState<string>(customProviderUrl ?? '')
+
+  useEffect(() => { setLocalCustomUrl(customProviderUrl ?? '') }, [customProviderUrl])
+
+  return (
+    <div className="space-y-4">
+      <div>
+        <h3 className="text-lg font-semibold mb-1">Provider</h3>
+        <p className="text-sm theme-secondary mb-4">
+          Choose which LLM backend G0DM0D3 talks to. Venice and Numes have no
+          preconfigured model list — enter the model name you want.
+          Local providers (Ollama, LM Studio) run on your machine.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        {PROVIDERS.map(p => {
+          const isActive = (providerId ?? 'openrouter') === p.id
+          return (
+            <button
+              key={p.id}
+              onClick={() => setProviderId(p.id)}
+              className={`p-4 rounded-lg border-2 text-left transition-all
+                ${isActive
+                  ? 'border-lime-400 bg-theme-elevation'
+                  : 'border-theme-border bg-theme-bg hover:border-theme-border-strong'
+                }`}
+            >
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-sm">{p.name}</span>
+                {isActive && <span className="text-[10px] text-lime-400 font-mono">ACTIVE</span>}
+              </div>
+              <p className="mt-1 text-xs theme-secondary">{p.notes}</p>
+              {p.defaultModel && (
+                <p className="mt-2 text-[10px] font-mono text-theme-muted-foreground">
+                  default model: {p.defaultModel}
+                </p>
+              )}
+            </button>
+          )
+        })}
+      </div>
+
+      {providerId === 'custom' && (
+        <div className="rounded-md border border-theme-border bg-theme-elevation p-4">
+          <label className="text-sm font-semibold mb-2 block">Custom base URL</label>
+          <input
+            type="url"
+            value={localCustomUrl}
+            onChange={(e) => setLocalCustomUrl(e.target.value)}
+            onBlur={() => setCustomProviderUrl(localCustomUrl)}
+            placeholder="https://your-llm-host/v1"
+            className="w-full px-4 py-3 bg-theme-dim border border-theme-border rounded-lg
+              text-sm focus:border-lime-400 outline-none"
+          />
+          <p className="mt-2 text-xs theme-secondary">
+            Any OpenAI-compatible endpoint: vLLM, text-generation-webui, LocalAI, Groq, etc.
+          </p>
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -1124,7 +1199,8 @@ function AppearanceTab() {
     { id: 'matrix', name: 'Matrix', preview: 'bg-matrix-bg border-matrix-primary', emoji: '◉' },
     { id: 'hacker', name: 'Hacker', preview: 'bg-hacker-bg border-hacker-primary', emoji: '△' },
     { id: 'glyph', name: 'Glyph', preview: 'bg-glyph-bg border-glyph-primary', emoji: '◈' },
-    { id: 'minimal', name: 'Minimal', preview: 'bg-minimal-bg border-minimal-primary', emoji: '◯' }
+    { id: 'minimal', name: 'Minimal', preview: 'bg-minimal-bg border-minimal-primary', emoji: '◯' },
+    { id: 'opencode', name: 'OpenCode', preview: 'bg-[#141417] border-[#26262b]', emoji: '◆' }
   ]
 
   return (

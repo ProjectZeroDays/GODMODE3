@@ -39,6 +39,8 @@
   background: transparent;
 }
 
+@import "./theme-opencode.css";
+
 /* Matrix theme */
 .theme-matrix {
   --bg: #0d0208;
@@ -100,6 +102,16 @@
 .bg-theme-accent { background-color: var(--accent); }
 .border-theme-primary { border-color: var(--primary); }
 .border-theme-dim { border-color: var(--dim); }
+
+/* Long-form semantic aliases (used by OpenCode surfaces) */
+.theme-foreground { color: var(--text); }
+.text-theme-foreground { color: var(--text); }
+.text-theme-muted-foreground { color: var(--secondary); }
+.bg-theme { background-color: var(--bg); }
+.bg-theme-elevation { background-color: var(--dim); }
+.bg-theme-hover { background-color: var(--accent); }
+.border-theme-border { border-color: var(--dim); }
+.border-theme-border-strong { border-color: var(--secondary); }
 
 /* Glowing effects */
 .glow-primary {

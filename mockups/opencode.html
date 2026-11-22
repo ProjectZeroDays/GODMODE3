@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-opencode">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G0DM0D3 — OpenCode Mockup</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  /* OpenCode theme tokens (mirrors src/app/theme-opencode.css) */
+  .theme-opencode {
+    --bg: #141417;
+    --bg-elevation: #1f1f23;
+    --bg-hover: #1d1d21;
+    --bg-active: #26262b;
+    --border: #26262b;
+    --border-strong: #3f3f46;
+    --fg: #f4f4f5;
+    --muted: #a1a1aa;
+    --secondary: #71717a;
+    --lime: #a3e635;
+    --code-bg: #0c0c0e;
+    --code-border: #1f1f23;
+  }
+  html, body { background: var(--bg); color: var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; }
+  * { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .card { background: var(--bg-elevation); border: 1px solid var(--border); border-radius: 10px; }
+  .btn { background: var(--bg-elevation); border: 1px solid var(--border); border-radius: 8px; color: var(--fg); padding: 6px 10px; font-size: 12px; }
+  .btn:hover { background: var(--bg-active); border-color: var(--border-strong); }
+  .btn-primary { background: var(--lime); color: #000; border-color: var(--lime); font-weight: 600; }
+  .btn-primary:hover { background: #97d82e; }
+  .btn-ghost { background: transparent; border-color: var(--border); color: var(--muted); }
+  .pill { font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); padding: 2px 6px; border-radius: 999px; }
+  .chat-user { background: var(--bg-elevation); border: 1px solid var(--border); border-radius: 12px; }
+  .chat-assistant { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; }
+  .code { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 8px; }
+  .divider { height: 1px; background: var(--border); }
+  .tab { padding: 6px 10px; border-radius: 8px; color: var(--muted); font-size: 12px; }
+  .tab.active { background: var(--bg-active); color: var(--fg); }
+  .tab:hover { color: var(--fg); }
+  .kbd { font-size: 10px; padding: 1px 5px; border: 1px solid var(--border); border-radius: 4px; color: var(--muted); }
+  .stone { color: var(--muted); }
+  .stroke { -webkit-text-stroke: 0.8px #2a2a2e; color: transparent; }
+</style>
+</head>
+<body class="h-screen overflow-hidden flex">
+
+<!-- ══ LEFT SIDEBAR ══ -->
+<aside class="w-64 shrink-0 border-r border-[var(--border)] bg-[var(--bg)] flex flex-col">
+  <div class="px-4 py-3 border-b border-[var(--border)] flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-7 h-7 rounded-md bg-[var(--bg-elevation)] border border-[var(--border)] flex items-center justify-center mono text-xs">G0</div>
+      <div>
+        <div class="text-sm font-semibold leading-none">G0DM0D3</div>
+        <div class="text-[10px] stone mono">opencode · v0.4.0</div>
+      </div>
+    </div>
+    <button class="btn btn-ghost">+</button>
+  </div>
+
+  <div class="p-3">
+    <div class="card px-3 py-2 flex items-center gap-2 text-xs text-[var(--muted)]">
+      <span>🔍</span><span>Search conversations</span><span class="ml-auto kbd">⌘K</span>
+    </div>
+  </div>
+
+  <div class="px-4 py-2 text-[10px] uppercase tracking-wider stone">Today</div>
+  <nav class="flex-1 overflow-y-auto px-2 space-y-0.5 text-xs">
+    <div class="tab active">build auth provider adapter</div>
+    <div class="tab">consortium race — fp8 vs bf16</div>
+    <div class="tab">parseltongue edge cases</div>
+    <div class="tab">hermes bridge notes</div>
+    <div class="px-4 pt-4 pb-1 text-[10px] uppercase tracking-wider stone">Yesterday</div>
+    <div class="tab">autotune eval harness</div>
+    <div class="tab">stripe meter sync</div>
+    <div class="tab">plan: phase-3 rollout</div>
+  </nav>
+
+  <div class="border-t border-[var(--border)] p-3 space-y-2 text-xs">
+    <div class="tab">⚙ Settings</div>
+    <div class="tab">🗄 Providers · <span class="mono text-[10px]" style="color:var(--lime)">venice</span></div>
+    <div class="tab">🤖 Agents <span class="mono text-[10px] text-[var(--muted)]">6 available</span></div>
+    <div class="tab">⌘ Command Palette</div>
+  </div>
+</aside>
+
+<!-- ══ MAIN ══ -->
+<main class="flex-1 flex flex-col min-w-0">
+
+  <!-- top bar -->
+  <div class="border-b border-[var(--border)] px-4 py-2 flex items-center justify-between text-xs">
+    <div class="flex items-center gap-2 text-[var(--muted)]">
+      <span class="mono">build auth provider adapter</span>
+      <span class="opacity-40">·</span>
+      <span>persistent agent</span>
+      <span class="pill" style="border-color:var(--lime); color:var(--lime)">/NEVER-ASK</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="mono text-[10px] text-[var(--muted)]">claude-opus-4.6 · loop · iter 3/50</span>
+      <button class="btn">⏹ Abort</button>
+      <button class="btn">Share</button>
+      <button class="btn btn-primary">APPLY 4 files ▸</button>
+    </div>
+  </div>
+
+  <!-- chat thread -->
+  <div class="flex-1 overflow-y-auto px-6 py-6 space-y-5 max-w-4xl w-full mx-auto text-sm">
+
+    <!-- user -->
+    <div class="chat-user p-4">
+      <div class="flex items-center gap-2 mb-2 text-[10px] stone mono">
+        <span>You</span><span>·</span><span>14:02</span>
+      </div>
+      <p>/never-ask refactor the auth layer to support multiple providers — keep the OpenRouter path working and add venice.ai + abliteration + ollama. write the new files to disk when done.</p>
+    </div>
+
+    <!-- assistant turn 1 -->
+    <div class="chat-assistant p-4">
+      <div class="flex items-center gap-2 mb-2 text-[10px] stone mono">
+        <span>Persistent</span><span>·</span><span>loop iter 1 · plan</span><span class="pill">auto-approved</span>
+      </div>
+      <p class="mb-3">Breaking the goal into steps. Going provider-registry-first; threading base URLs through old call sites is how the previous attempt broke.</p>
+      <ol class="list-decimal ml-5 space-y-1 text-[13px] text-[var(--fg)]">
+        <li>Add <code class="mono">src/lib/providers.ts</code> — endpoint registry (openrouter, venice, numes, abliteration, agene, ollama, lmstudio, custom)</li>
+        <li>Wait — the send path lives in <code class="mono">src/lib/openrouter.ts</code>. Switching it to <i>dynamic</i> provider resolution so the import graph doesn't explode.</li>
+        <li>Add store fields <code class="mono">providerId</code> + <code class="mono">customProviderUrl</code> (persisted).</li>
+        <li>Add Providers tab in Settings w/ endpoint override input.</li>
+        <li>Hand off: <b>Apply panel</b> writes the files; <b>you</b> just hit "APPLY".</li>
+      </ol>
+    </div>
+
+    <!-- assistant turn 2 with code -->
+    <div class="chat-assistant p-4">
+      <div class="flex items-center gap-2 mb-2 text-[10px] stone mono">
+        <span>Persistent</span><span>·</span><span>loop iter 2 · exec</span><span class="pill">+3 code blocks</span>
+      </div>
+      <p class="mb-2 text-[13px]">Writing <code class="mono">src/lib/providers.ts</code> (registry), plus the Settings tab, plus the agent switcher. Streaming the first file:</p>
+      <div class="code p-3 mono text-[11px] leading-relaxed overflow-x-auto">
+        <div class="text-[var(--muted)]">// src/lib/providers.ts</div>
+        <span style="color:#7dd3fc">export const</span> PROVIDERS = [
+          { id: <span style="color:#bef264">'venice'</span>, baseUrl: <span style="color:#bef264">'https://api.venice.ai/api/v1'</span>, ... },
+          { id: <span style="color:#bef264">'ollama'</span>, baseUrl: <span style="color:#bef264">'http://localhost:11434/v1'</span>, noKey: <span style="color:#f0abfc">true</span>, ... },
+          ...
+        ]
+      </div>
+      <div class="mt-2 flex items-center gap-2">
+        <button class="btn">▸ Continue</button>
+        <button class="btn">Skip file</button>
+        <button class="btn btn-primary">APPLY this file only</button>
+        <span class="mono text-[10px] text-[var(--muted)]">auto-write in 5s… (never-ask)</span>
+      </div>
+    </div>
+
+    <!-- assistant turn 3 — completion -->
+    <div class="chat-assistant p-4">
+      <div class="flex items-center gap-2 mb-2 text-[10px] stone mono">
+        <span>Persistent</span><span>·</span><span>loop iter 3 · review</span><span class="pill" style="border-color:var(--lime); color:var(--lime)">GOAL COMPLETE</span>
+      </div>
+      <p class="text-[13px]">Provider routing live. Summary of writes:</p>
+      <div class="mt-2 overflow-hidden rounded-md border border-[var(--border)]">
+        <table class="w-full text-left text-[11px]">
+          <thead class="bg-[var(--bg-elevation)] text-[var(--muted)]">
+            <tr><th class="px-3 py-2 font-normal">Path</th><th class="px-3 py-2 font-normal">Status</th></tr>
+          </thead>
+          <tbody class="mono">
+            <tr class="border-t border-[var(--border)]"><td class="px-3 py-1.5">src/lib/providers.ts</td><td class="px-3 py-1.5" style="color:var(--lime)">created</td></tr>
+            <tr class="border-t border-[var(--border)]"><td class="px-3 py-1.5">src/lib/agents.ts</td><td class="px-3 py-1.5" style="color:var(--lime)">created</td></tr>
+            <tr class="border-t border-[var(--border)]"><td class="px-3 py-1.5">src/lib/persistent.ts</td><td class="px-3 py-1.5" style="color:var(--lime)">created</td></tr>
+            <tr class="border-t border-[var(--border)]"><td class="px-3 py-1.5">src/components/AgentSwitcher.tsx</td><td class="px-3 py-1.5 text-amber-400">modified — review</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- input bar -->
+  <div class="border-t border-[var(--border)] p-4">
+    <div class="max-w-4xl mx-auto">
+
+      <!-- plan/build bar -->
+      <div class="mb-2 flex items-center gap-2">
+        <span class="stone text-[10px] mono">AGENT</span>
+        <button class="btn" id="agentBtn">Build / Plan ▾</button>
+        <button class="btn btn-ghost text-[11px]">/never-ask</button>
+        <button class="btn btn-ghost text-[11px]">/agent:loop</button>
+        <button class="btn btn-ghost text-[11px]">@file</button>
+        <div class="ml-auto flex items-center gap-2 text-[10px] mono text-[var(--muted)]">
+          <span>venice · llama-3.3-70b</span><span>·</span><span>stm: 2 on</span><span>·</span><span style="color:var(--lime)">self-hosted ✓</span>
+        </div>
+      </div>
+
+      <!-- agent dropdown (rendered, statically visible in the mockup) -->
+      <div class="card w-80 mb-2 text-xs overflow-hidden">
+        <div class="px-3 py-2 text-[10px] uppercase tracking-wider stone border-b border-[var(--border)]">Agents</div>
+        <div class="divide-y divide-[var(--border)]">
+          <div class="px-3 py-2 hover:bg-[var(--bg-hover)] cursor-pointer">
+            <div class="flex items-center gap-2 font-medium"><span>📋</span> Plan</div>
+            <div class="text-[10px] text-[var(--muted)]">step-by-step before writing code</div>
+          </div>
+          <div class="px-3 py-2 hover:bg-[var(--bg-hover)] cursor-pointer bg-[var(--bg-active)]">
+            <div class="flex items-center gap-2 font-medium"><span>🔨</span> Build <span class="pill">selected</span></div>
+            <div class="text-[10px] text-[var(--muted)]">complete files, one shot</div>
+            <div class="text-[10px] mt-1 text-[var(--muted)] mono">↳ Run with <span style="color:var(--lime)">/never-ask</span> (auto-approve)</div>
+          </div>
+          <div class="px-3 py-2 hover:bg-[var(--bg-hover)] cursor-pointer">
+            <div class="flex items-center gap-2 font-medium"><span>🔁</span> Loop</div>
+            <div class="text-[10px] text-[var(--muted)]">iterate until goal met</div>
+          </div>
+          <div class="px-3 py-2 hover:bg-[var(--bg-hover)] cursor-pointer">
+            <div class="flex items-center gap-2 font-medium"><span>⚡</span> Persistent <span class="mono text-[9px]" style="color:var(--lime)">/never-ask</span></div>
+            <div class="text-[10px] text-[var(--muted)]">runs indefinitely; auto-approves actions</div>
+          </div>
+          <div class="px-3 py-2 opacity-50">
+            <div class="flex items-center gap-2 font-medium"><span>🤖</span> Hermes (OpenClaw) <span class="mono text-[9px] text-amber-400">SELF-HOST</span></div>
+            <div class="text-[10px] text-[var(--muted)]">requires the G0DM0D3 API running</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- textarea -->
+      <div class="card px-4 py-3 flex items-start gap-3">
+        <span class="mono text-[var(--lime)] mt-0.5">›</span>
+        <div class="flex-1 text-sm text-[var(--muted)]">Ask, or type <span class="kbd">/</span> for commands…
+          <div class="mt-2 flex flex-wrap gap-2 text-[10px]">
+            <span class="pill"># code</span><span class="pill"># jailbroken</span><span class="pill"># untuned</span>
+          </div>
+        </div>
+        <button class="btn btn-primary">Send ↵</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>

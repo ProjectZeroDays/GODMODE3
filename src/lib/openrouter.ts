@@ -6,6 +6,23 @@
 const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions'
 
 /**
+ * Resolve the actual chat endpoint for this request. Falls back to OpenRouter.
+ * Reads the provider settings from the persisted zustand store so we don't
+ * have to thread provider info through every call site.
+ */
+async function resolveEndpoint(): Promise<string> {
+  try {
+    const { useStore } = await import('@/store')
+    const { getProvider, getChatEndpoint } = await import('@/lib/providers')
+    const state = useStore.getState()
+    const provider = getProvider((state.providerId || 'openrouter') as any)
+    return getChatEndpoint(provider, state.customProviderUrl)
+  } catch {
+    return OPENROUTER_API_URL
+  }
+}
+
+/**
  * Maps API error responses to specific, actionable user-facing messages.
  */
 export function formatAPIError(status: number, errorMessage?: string): string {
@@ -140,7 +157,8 @@ export async function sendMessage({
     body.provider = providerOptions
   }
 
-  const response = await fetch(OPENROUTER_API_URL, {
+  const endpointUrl = await resolveEndpoint()
+  const response = await fetch(endpointUrl, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${apiKey}`,
@@ -202,7 +220,8 @@ export async function* streamMessage({
   if (presence_penalty !== undefined) streamBody.presence_penalty = presence_penalty
   if (repetition_penalty !== undefined) streamBody.repetition_penalty = repetition_penalty
 
-  const response = await fetch(OPENROUTER_API_URL, {
+  const streamEndpoint = await resolveEndpoint()
+  const response = await fetch(streamEndpoint, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${apiKey}`,

@@ -4,7 +4,7 @@ import { useRef, useEffect, useState, useCallback } from 'react'
 import { useStore } from '@/store'
 import { ChatMessage } from './ChatMessage'
 import { ChatInput } from './ChatInput'
-import { ArrowDown, Droplets, Hash } from 'lucide-react'
+import { ArrowDown, Droplets, Hash, FolderSymlink } from 'lucide-react'
 
 export function ChatArea() {
   const {
@@ -85,6 +85,16 @@ export function ChatArea() {
           >
             <Droplets className="w-3 h-3" />
             <span className="text-[10px]">LIQUID</span>
+          </button>
+
+          {/* Apply code to a local folder */}
+          <button
+            onClick={() => window.dispatchEvent(new CustomEvent('g0d:open-write-to-disk'))}
+            className="flex items-center gap-1.5 px-2 py-1 rounded-md border border-theme-primary/30 bg-theme-dim/50 hover:bg-theme-accent transition-all font-mono"
+            title="Extract code blocks from this chat and write them into a folder on your disk"
+          >
+            <FolderSymlink className="w-3 h-3" />
+            <span className="text-[10px]">APPLY</span>
           </button>
 
           <span className="opacity-30">|</span>

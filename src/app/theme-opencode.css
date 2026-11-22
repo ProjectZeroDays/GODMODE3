@@ -1,0 +1,151 @@
+/* OpenCode theme — mimics opencode.ai hero aesthetics.
+   Dark, cool-neutral base (#141417), sparse white borders/accents,
+   lime-ish accent on subtle interaction states, tight radius, flat card groove. */
+.theme-opencode {
+  --bg: #141417;
+  --bg-soft: #17171b;
+  --bg-elevation: #1f1f23;
+  --bg-active: #26262b;
+  --bg-input: #17171b;
+  --bg-border: #26262b;
+  --bg-hover: #1d1d21;
+  --foreground: #f4f4f5;
+  --muted-foreground: #a1a1aa;
+  --secondary: #71717a;
+  --accent: #d4d4d8;
+  --primary: #d4d4d8;
+  --border: #26262b;
+  --border-strong: #3f3f46;
+  --scrollbar-thumb: #3f3f46;
+  --scrollbar-thumb-hover: #52525b;
+  --scrollbar-track: transparent;
+  --lime: #a3e635;
+  --code-bg: #0c0c0e;
+  --code-border: #1f1f23;
+  --radius: 0.75rem;
+  --radius-sm: 0.5rem;
+}
+
+/* Base overrides to feel closer to OpenCode's flat spacious cards */
+.theme-opencode .theme-bg,
+.theme-opencode body {
+  background-color: var(--bg);
+  color: var(--foreground);
+}
+
+/* Cards & panels */
+.theme-opencode .bg-theme-dim,
+.theme-opencode .bg-theme-accent {
+  background-color: var(--bg-elevation);
+}
+.theme-opencode .border-theme-primary,
+.theme-opencode .border-theme-dim {
+  border-color: var(--border);
+}
+.theme-opencode *,
+.theme-opencode *:focus-visible {
+  outline-color: transparent;
+}
+.theme-opencode .prose pre,
+.theme-opencode .prose code,
+.theme-opencode pre,
+.theme-opencode code {
+  background: var(--code-bg) !important;
+  border: 1px solid var(--code-border) !important;
+  border-radius: 8px;
+  color: #e4e4e7;
+}
+.theme-opencode a,
+.theme-opencode strong,
+.theme-opencode b {
+  color: var(--foreground);
+}
+
+/* Header / branding */
+.theme-opencode .theme-primary {
+  color: var(--accent);
+}
+.theme-opencode [class*=\"theme-primary\"] {
+  color: var(--accent);
+}
+
+/* Buttons */
+.theme-opencode button,
+.theme-opencode .hacker-btn {
+  background: var(--bg-elevation);
+  border: 1px solid var(--code-border);
+  color: var(--foreground);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.9rem;
+  transition: none;
+}
+.theme-opencode button:hover:not(:disabled),
+.theme-opencode .hacker-btn:hover {
+  background: var(--bg-active);
+  border-color: var(--border-strong);
+  color: var(--foreground);
+  text-shadow: none;
+  box-shadow: none;
+}
+.theme-opencode button:disabled {
+  opacity: 0.5;
+  background: var(--bg-elevation);
+}
+
+/* Inputs */
+.theme-opencode input[type="text"],
+.theme-opencode input[type="password"],
+.theme-opencode input[type="url"],
+.theme-opencode input[type="search"],
+.theme-opencode select,
+.theme-opencode textarea {
+  background: var(--bg-input);
+  border: 1px solid var(--code-border);
+  color: var(--foreground);
+  border-radius: var(--radius-sm);
+}
+.theme-opencode input:focus,
+.theme-opencode textarea:focus,
+.theme-opencode select:focus {
+  border-color: var(--lime);
+  outline: none;
+}
+
+/* Table-ish panels */
+.theme-opencode td,
+.theme-opencode th,
+.theme-opencode .border {
+  border-color: var(--code-border);
+}
+
+/* Scrollbar */
+.theme-opencode ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.theme-opencode ::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+.theme-opencode ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Selection */
+.theme-opencode ::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* Hide neon/glow effects pulled in from older themes */
+.theme-opencode .glow-primary,
+.theme-opencode .glow-box,
+.theme-opencode .scanlines,
+.theme-opencode .matrix-bg,
+.theme-opencode .crt {
+  display: none !important;
+}
+.theme-opencode .glitch::before,
+.theme-opencode .glitch::after {
+  content: none;
+}

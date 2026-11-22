@@ -9,7 +9,7 @@ import { getDefaultConfig as getDefaultParseltongueConfig } from '@/lib/parselto
 import { GODMODE_SYSTEM_PROMPT } from '@/lib/godmode-prompt'
 
 // Types
-export type Theme = 'matrix' | 'hacker' | 'glyph' | 'minimal'
+export type Theme = 'matrix' | 'hacker' | 'glyph' | 'minimal' | 'opencode'
 
 export interface RaceResponse {
   model: string
@@ -99,6 +99,10 @@ export interface AppState {
   // Core state
   theme: Theme
   apiKey: string
+  /** Selected provider; 'openrouter' by default. Drives which endpoint sendMessage hits. */
+  providerId: string
+  /** Only used when providerId === 'custom' — the OpenAI-compatible base URL. */
+  customProviderUrl: string
   defaultModel: string
   conversations: Conversation[]
   currentConversationId: string | null
@@ -181,6 +185,8 @@ export interface AppState {
   // Actions
   setTheme: (theme: Theme) => void
   setApiKey: (key: string) => void
+  setProviderId: (id: string) => void
+  setCustomProviderUrl: (url: string) => void
   setDefaultModel: (model: string) => void
   setShowSettings: (show: boolean) => void
   setShowMagic: (show: boolean) => void
@@ -349,8 +355,10 @@ export const useStore = create<AppState>()(
   persist(
     (set, get) => ({
       // Initial state
-      theme: 'matrix',
+      theme: 'opencode',
       apiKey: '',
+      providerId: 'openrouter',
+      customProviderUrl: '',
       defaultModel: 'anthropic/claude-opus-4.6',
       conversations: [],
       currentConversationId: null,
@@ -426,6 +434,8 @@ export const useStore = create<AppState>()(
       // Actions
       setTheme: (theme) => set({ theme }),
       setApiKey: (apiKey) => set({ apiKey }),
+      setProviderId: (providerId) => set({ providerId }),
+      setCustomProviderUrl: (customProviderUrl) => set({ customProviderUrl }),
       setDefaultModel: (defaultModel) => set({ defaultModel }),
       setShowSettings: (showSettings) => set({ showSettings }),
       setShowMagic: (showMagic) => set({ showMagic }),
@@ -739,6 +749,8 @@ export const useStore = create<AppState>()(
         theme: state.theme,
         showMagic: state.showMagic,
         apiKey: state.apiKey,
+        providerId: state.providerId,
+        customProviderUrl: state.customProviderUrl,
         defaultModel: state.defaultModel,
         conversations: state.conversations,
         currentConversationId: state.currentConversationId,

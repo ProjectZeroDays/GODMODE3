@@ -11,6 +11,10 @@ import { computeAutoTuneParams, getContextLabel, getStrategyLabel, PARAM_META } 
 import type { AutoTuneResult } from '@/lib/autotune'
 import { applyParseltongue, detectTriggers } from '@/lib/parseltongue'
 import { Send, Loader2, StopCircle, SlidersHorizontal } from 'lucide-react'
+import { AgentSwitcher } from './AgentSwitcher'
+import { AgentLoopPanel } from './AgentLoopPanel'
+import { getAgent, type Agent } from '@/lib/agents'
+import { getProvider, getChatEndpoint, type ProviderId } from '@/lib/providers'
 
 export function ChatInput() {
   const {
@@ -72,6 +76,14 @@ export function ChatInput() {
   } | null>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const abortControllerRef = useRef<AbortController | null>(null)
+
+  // Agent orchestration state
+  const [loopAgentId, setLoopAgentId] = useState<string | null>(null)
+  const [loopGoal, setLoopGoal] = useState('')
+  const [loopNeverAsk, setLoopNeverAsk] = useState(false)
+  const [loopTokenBudget, setLoopTokenBudget] = useState(100_000) // default 100k token cap per run
+  const [sdlcUnattended, setSdlcUnattended] = useState(false)     // true = agent never prompts
+  const [showLoopPanel, setShowLoopPanel] = useState(false)
 
   // Auto-resize textarea
   useEffect(() => {
@@ -135,11 +147,43 @@ export function ChatInput() {
   // Proxy mode: when no personal OpenRouter key, route through self-hosted API
   const proxyMode = !apiKey && !!ultraplinianApiUrl && !!ultraplinianApiKey
 
+  // Launch a persistent agent run with the user's goal
+  const launchLoop = (agent: Agent, mode: 'run' | 'never-ask', goal: string) => {
+    setLoopAgentId(agent.id)
+    setLoopGoal(goal)
+    setLoopNeverAsk(mode === 'never-ask' || agent.mode === 'persistent')
+    setShowLoopPanel(true)
+    setInput('')
+  }
+
   const handleSubmit = async () => {
     if (!input.trim() || !currentConversationId || isStreaming) return
     if (!apiKey && !proxyMode) return
 
     const originalMessage = input.trim()
+
+    // ── Slash commands ──────────────────────────────────────────────
+    // /never-ask <goal>        — turn the message into a /never-ask persistent run
+    // /agent:<id> <goal>       — pick an agent explicitly
+    if (originalMessage.startsWith('/')) {
+      const [cmd, ...rest] = originalMessage.split(/\s+/)
+      const restText = rest.join(' ').trim()
+      const neverAsk = cmd === '/never-ask'
+      const agentTag = cmd.match(/^\/agent:(\w+)/)?.[1]
+      const pickedAgent = agentTag ? getAgent(agentTag) : null
+
+      if (neverAsk || pickedAgent) {
+        const agent = pickedAgent ?? getAgent('persistent') ?? getAgent('loop')!
+        if (!restText) return
+        launchLoop(agent, neverAsk ? 'never-ask' : 'run', restText)
+        addMessage(currentConversationId, {
+          role: 'user',
+          content: `▶︎ [${agent.name}${neverAsk ? ' + /never-ask' : ''}] ${restText}`,
+        })
+        return
+      }
+    }
+
     setInput('')
     setIsStreaming(true)
     incrementPromptsTried()
@@ -755,6 +799,35 @@ export function ChatInput() {
         )}
 
         <div className="flex items-end gap-3">
+          {/* Agent picker — build / plan / loop / persistent */}
+          <div className="flex flex-col justify-end pb-0.5 gap-1">
+            <AgentSwitcher onPick={(agent, mode) => {
+              const goal = input.trim()
+              if (!goal) return
+              launchLoop(agent, mode, goal)
+            }} />
+            <div className="flex items-center gap-1 text-[10px] text-theme-muted-foreground">
+              <button
+                onClick={() => setSdlcUnattended(v => !v)}
+                title="SDLC unattended — agent makes every call itself, no user input"
+                className={`px-1.5 py-0.5 rounded border transition-colors font-mono ${sdlcUnattended ? 'border-lime-400 text-lime-400 bg-lime-400/10' : 'border-theme-border hover:bg-theme-accent/40'}`}
+              >
+                SDLC
+              </button>
+              <input
+                type="number"
+                min={5000}
+                max={1000000}
+                step={5000}
+                value={loopTokenBudget}
+                onChange={e => setLoopTokenBudget(Math.max(5000, parseInt(e.target.value) || 50000))}
+                title="Token budget for this loop run (max)"
+                className="w-20 px-1 py-0.5 rounded border border-theme-border bg-theme-bg text-right font-mono text-[10px] text-theme-muted-foreground"
+              />
+              <span className="text-[9px]">tok</span>
+            </div>
+          </div>
+
           <div className="flex-1 relative">
             <textarea
               ref={textareaRef}
@@ -871,6 +944,17 @@ export function ChatInput() {
             </span>
           )}
         </div>
+
+        {/* Persistent agent loop monitor */}
+        <AgentLoopPanel
+          open={showLoopPanel}
+          agentId={loopAgentId}
+          goal={loopGoal}
+          neverAsk={loopNeverAsk}
+          mode={sdlcUnattended ? 'unattended' : 'interactive'}
+          tokenBudget={loopTokenBudget}
+          onClose={() => setShowLoopPanel(false)}
+        />
       </div>
     </div>
   )
