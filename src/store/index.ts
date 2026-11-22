@@ -1,5 +1,7 @@
+'use client'
+
 import { create } from 'zustand'
-import { persist, createJSONStorage } from 'zustand/middleware'
+import { persist, createJSONStorage, type StateStorage } from 'zustand/middleware'
 import { v4 as uuidv4 } from 'uuid'
 import type { AutoTuneStrategy, AutoTuneParams, AutoTuneResult, ContextType, ContextScore, PatternMatch, ParamDelta } from '@/lib/autotune'
 import type { FeedbackState, LearnedProfile } from '@/lib/autotune-feedback'
@@ -7,6 +9,7 @@ import { createInitialFeedbackState, processFeedback, computeHeuristics } from '
 import type { ParseltongueConfig, ObfuscationTechnique } from '@/lib/parseltongue'
 import { getDefaultConfig as getDefaultParseltongueConfig } from '@/lib/parseltongue'
 import { GODMODE_SYSTEM_PROMPT } from '@/lib/godmode-prompt'
+import { encryptState, decryptState } from '@/lib/secure-store'
 
 // Types
 export type Theme = 'matrix' | 'hacker' | 'glyph' | 'minimal' | 'opencode'
@@ -744,7 +747,7 @@ export const useStore = create<AppState>()(
     }),
     {
       name: 'g0dm0d3-storage',
-      storage: createJSONStorage(() => localStorage),
+      storage: createSecureJSONStorage(),
       partialize: (state) => ({
         theme: state.theme,
         showMagic: state.showMagic,
@@ -791,3 +794,32 @@ export const useStore = create<AppState>()(
     }
   )
 )
+
+/**
+ * Zustand storage adapter that AES-GCM encrypts the sensitive fields before
+ * they touch localStorage. Non-sensitive fields stay in cleartext for fast
+ * rehydration. Falls back to localStorage directly when IndexedDB/crypto are
+ * missing (e.g. during SSR).
+ */
+function createSecureJSONStorage(): StateStorage {
+  if (typeof window === 'undefined') return createJSONStorage(() => localStorage).storage
+
+  return {
+    getItem: async (name: string) => {
+      const raw = localStorage.getItem(name)
+      if (!raw) return null
+      try {
+        const parsed = JSON.parse(raw)
+        return JSON.stringify(await decryptState(parsed))
+      } catch {
+        return raw
+      }
+    },
+    setItem: async (name: string, value: string) => {
+      const parsed = JSON.parse(value)
+      const encrypted = await encryptState(parsed)
+      localStorage.setItem(name, JSON.stringify(encrypted))
+    },
+    removeItem: (name: string) => localStorage.removeItem(name),
+  }
+}
