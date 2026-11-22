@@ -16,6 +16,24 @@ import {
 import { PersonaSelector } from './PersonaSelector'
 import { ModelSelector } from './ModelSelector'
 
+const TIPS = [
+  '💡 Type /never-ask <goal> to run the agent loop unattended',
+  '💡 Use the Build/Plan dropdown to switch to a goal-anchored agent',
+  '💡 Settings → Providers accepts Venice, Numes, Ollama, and other OpenAI-compatible backends',
+  '💡 Select text in a code block, then press the 💾 button to save it to disk',
+  '💡 The "APPLY" button in the header extracts all code blocks and writes them to a folder',
+  '💡 Set a GitHub PAT + repo in the top bar to push generated code directly',
+  '💡 Try the Konami code (↑↑↓↓←→←→BA) if you want glowing surprises',
+]
+
+function TipOfTheDay() {
+  const [index] = useState(() => {
+    const day = Math.floor(Date.now() / 86400000)
+    return day % TIPS.length
+  })
+  return <span>{TIPS[index]}</span>
+}
+
 interface SidebarProps {
   isOpen: boolean
   onToggle: () => void
@@ -148,11 +166,9 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
 
           {/* Footer */}
           <div className="p-4 border-t border-theme-primary">
-            {/* Easter egg hints */}
-            <div className="text-xs theme-secondary mb-3 text-center opacity-50">
-              <span className="cursor-help" title="Try the Konami code...">
-                ⌘ ↑↑↓↓←→←→BA
-              </span>
+            {/* Tip of the day — replaces the static Konami glyph line */}
+            <div className="text-xs theme-secondary mb-3 text-center opacity-50" title="Pro tip">
+              <TipOfTheDay />
             </div>
 
             <button
@@ -164,6 +180,35 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
               <Settings className="w-4 h-4" />
               <span>Settings</span>
             </button>
+
+            {/* Social + docs links */}
+            <div className="mt-4 flex items-center justify-center gap-4 text-xs">
+              <a
+                href="https://github.com/ProjectZeroDays/GODMODE3"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-theme-secondary hover:theme-primary transition-colors"
+                title="Star / fork on GitHub"
+              >
+                GitHub
+              </a>
+              <a
+                href="https://github.com/ProjectZeroDays/GODMODE3/issues/new"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-theme-secondary hover:theme-primary transition-colors"
+                title="Report a bug"
+              >
+                Bug
+              </a>
+              <button
+                onClick={() => window.dispatchEvent(new CustomEvent('g0d:open-docs', { detail: 'wiki' }))}
+                className="text-theme-secondary hover:theme-primary transition-colors"
+                title="Open the in-app wiki"
+              >
+                Wiki
+              </button>
+            </div>
 
             {/* Credits */}
             <div className="mt-4 text-center">

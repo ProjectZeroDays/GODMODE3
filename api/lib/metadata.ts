@@ -1,7 +1,7 @@
 /**
  * ZDR Metadata Tracker
  *
- * Always-on, privacy-first analytics for G0DM0D3.
+ * Always-on, privacy-first analytics for g0dm0d4.
  * Records EVERYTHING about requests — except the actual content.
  *
  * What IS tracked:

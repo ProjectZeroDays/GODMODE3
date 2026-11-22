@@ -328,7 +328,7 @@ interface ProxyMessageOptions {
 }
 
 /**
- * Send a message via the self-hosted G0DM0D3 API server.
+ * Send a message via the self-hosted g0dm0d4 API server.
  * Used in proxy mode when no personal OpenRouter key is available —
  * the server uses its own server-side key.
  */

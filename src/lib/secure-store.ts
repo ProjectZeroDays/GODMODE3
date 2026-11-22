@@ -1,5 +1,5 @@
 /**
- * Encrypted-at-rest local persistence for G0DM0D3.
+ * Encrypted-at-rest local persistence for g0dm0d4.
  *
  * Uses the browser's WebCrypto API:
  *  • A 256-bit AES-GCM device key is generated once per profile and stored in
@@ -12,7 +12,7 @@
  * The key never leaves the device it's generated on.
  */
 
-const IDB_NAME = 'g0dm0d3-crypto'
+const IDB_NAME = 'g0dm0d4-crypto'
 const IDB_STORE = 'cipherkeys'
 const IDB_KEY_ID = 'device-key'
 

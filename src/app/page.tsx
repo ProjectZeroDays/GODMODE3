@@ -6,6 +6,8 @@ import { ChatArea } from '@/components/ChatArea'
 import { SettingsModal } from '@/components/SettingsModal'
 import { WelcomeScreen } from '@/components/WelcomeScreen'
 import { WriteToDiskPanel } from '@/components/WriteToDiskPanel'
+import { StatusStrip } from '@/components/StatusStrip'
+import { Workbench } from '@/components/Workbench'
 import { useStore } from '@/store'
 import { useEasterEggs } from '@/hooks/useEasterEggs'
 import { useApiAutoDetect } from '@/hooks/useApiAutoDetect'
@@ -46,7 +48,7 @@ export default function Home() {
   // cascade to elements outside <main>
   useEffect(() => {
     const root = document.documentElement
-    root.classList.remove('theme-matrix', 'theme-hacker', 'theme-glyph', 'theme-minimal', 'theme-opencode')
+    root.classList.remove('theme-matrix', 'theme-hacker', 'theme-glyph', 'theme-minimal', 'theme-opencode', 'theme-graphite', 'theme-opencode-light', 'theme-graphite-light')
     root.classList.add(`theme-${theme}`)
   }, [theme])
 
@@ -55,14 +57,17 @@ export default function Home() {
     return (
       <div className={`theme-${theme} theme-bg min-h-screen flex items-center justify-center`}>
         <div className="theme-primary text-xl font-mono">
-          <span className="loading-dots">Initializing G0DM0D3</span>
+          <span className="loading-dots">Initializing g0dm0d4</span>
         </div>
       </div>
     )
   }
 
   return (
-    <main className={`theme-${theme} theme-bg theme-text min-h-screen flex relative overflow-hidden`}>
+    <main className={`theme-${theme} theme-bg theme-text min-h-screen flex flex-col relative overflow-hidden`}>
+      {/* Top status strip: IP, VPN/Proxy, agent status */}
+      <StatusStrip />
+
       {/* Scanline effect for Matrix/Hacker themes */}
       {(theme === 'matrix' || theme === 'hacker') && (
         <div className="scanlines pointer-events-none absolute inset-0 z-50" />
@@ -74,8 +79,12 @@ export default function Home() {
         onToggle={() => setSidebarOpen(!sidebarOpen)}
       />
 
-      {/* Main content */}
-      <div className={`flex-1 flex flex-col transition-all duration-300 ${sidebarOpen ? 'ml-0' : 'ml-0'}`}>
+      {/* Main content — pushed right by the sidebar's width when open */}
+      <div className={`flex-1 flex flex-col transition-all duration-300 overflow-hidden ${sidebarOpen ? '' : ''}`}>
+
+        {/* Status strip at top */}
+        <StatusStrip />
+
         {(!apiKey && !proxyMode) || !currentConversation ? (
           <WelcomeScreen onOpenSettings={() => setShowSettings(true)} />
         ) : (
@@ -87,6 +96,9 @@ export default function Home() {
       {showSettings && (
         <SettingsModal onClose={() => setShowSettings(false)} />
       )}
+
+      {/* Right workbench: file tree, terminal, diffs */}
+      <Workbench />
 
       {/* Write-to-Disk batch apply */}
       <WriteToDiskPanel open={showWriteToDisk} onClose={() => setShowWriteToDisk(false)} />

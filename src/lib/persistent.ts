@@ -157,7 +157,7 @@ async function callModel(cfg: LoopConfig, agent: Agent, userPrompt: string): Pro
       'Authorization': `Bearer ${cfg.apiKey}`,
       'Content-Type': 'application/json',
       'HTTP-Referer': 'https://godmod3.ai',
-      'X-Title': 'G0DM0D3.AI',
+      'X-Title': 'g0dm0d4.AI',
     },
     body: JSON.stringify({
       model: cfg.model || agent.defaultModel,

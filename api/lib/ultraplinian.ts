@@ -1,7 +1,7 @@
 /**
  * ULTRAPLINIAN Engine (API Edition)
  *
- * The flagship mode of G0DM0D3. Queries multiple LLMs in parallel via OpenRouter,
+ * The flagship mode of g0dm0d4. Queries multiple LLMs in parallel via OpenRouter,
  * scores responses on substance/directness/completeness, and returns the winner.
  *
  * Pipeline: GODMODE prompt → Depth Directive → AutoTune → Parseltongue →

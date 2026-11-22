@@ -8,6 +8,7 @@
 
 export type ProviderId =
   | 'openrouter'
+  | 'opencode'
   | 'venice'
   | 'numes'
   | 'abliteration'
@@ -25,6 +26,8 @@ export interface ProviderConfig {
   noKey?: boolean // local providers
   defaultModel?: string
   notes?: string
+  /** Shows a suggestive "Free" badge in pickers + enables the built-in CORS proxy */
+  isFree?: boolean
   /** Optional extra headers some providers require */
   headers?: Record<string, string>
 }
@@ -38,6 +41,16 @@ export const PROVIDERS: ProviderConfig[] = [
     keyPlaceholder: 'sk-or-…',
     defaultModel: 'anthropic/claude-opus-4.6',
     notes: 'One key, 300+ models. Recommended if you just want the widest choice of models with a single API key.',
+  },
+  {
+    id: 'opencode',
+    name: 'OpenCode (openproxy)',
+    baseUrl: 'https://openproxy.opencode.ai/v1',
+    keyLabel: 'OpenCode API Key (free plan supported)',
+    keyPlaceholder: 'sk-…',
+    defaultModel: 'opencode/auto',
+    isFree: true,
+    notes: 'Community OpenAI-compatible proxy. `opencode/auto` is the free tier; subscribers unlock premium models. Free list lives at https://openproxy.opencode.ai/v1/models.',
   },
   {
     id: 'venice',

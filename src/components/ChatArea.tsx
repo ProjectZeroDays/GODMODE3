@@ -4,7 +4,7 @@ import { useRef, useEffect, useState, useCallback } from 'react'
 import { useStore } from '@/store'
 import { ChatMessage } from './ChatMessage'
 import { ChatInput } from './ChatInput'
-import { ArrowDown, Droplets, Hash, FolderSymlink } from 'lucide-react'
+import { ArrowDown, Droplets, Hash, FolderSymlink, Moon, Sun, GitBranch } from 'lucide-react'
 
 export function ChatArea() {
   const {
@@ -12,10 +12,16 @@ export function ChatArea() {
     liquidResponseEnabled, setLiquidResponseEnabled,
     promptsTried,
     ultraplinianEnabled, consortiumEnabled,
+    theme, toggleThemeMode,
+    repoSelection, setRepoSelection,
+    githubPat, setGithubPat,
   } = useStore()
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [isNearBottom, setIsNearBottom] = useState(true)
+  const [showRepoModal, setShowRepoModal] = useState(false)
+  const [repoInput, setRepoInput] = useState('')
+  const [branchInput, setBranchInput] = useState('main')
 
   const persona = personas.find(p => p.id === currentConversation?.persona) || personas[0]
 
@@ -62,6 +68,29 @@ export function ChatArea() {
           </div>
         </div>
         <div className="flex items-center gap-3 text-xs theme-secondary">
+          {/* Repo selector */}
+          <button
+            onClick={() => setShowRepoModal(true)}
+            className="flex items-center gap-1.5 px-2 py-1 rounded-md border border-theme-primary/30 bg-theme-dim/50 hover:bg-theme-accent transition-all font-mono"
+            title="Select which repo this chat works against"
+          >
+            <GitBranch className="w-3 h-3" />
+            <span className="text-[10px]">
+              {repoSelection?.type === 'remote' ? `${repoSelection.repo}` : 'local'}
+            </span>
+          </button>
+
+          {/* Light/dark toggle */}
+          <button
+            onClick={toggleThemeMode}
+            className="p-1 rounded-md border border-theme-primary/30 bg-theme-dim/50 hover:bg-theme-accent transition-all"
+            title={theme.endsWith('-light') ? 'Switch to dark' : 'Switch to light'}
+          >
+            {theme.endsWith('-light') ? <Moon className="w-3.5 h-3.5" /> : <Sun className="w-3.5 h-3.5" />}
+          </button>
+
+          <span className="opacity-30">|</span>
+
           {/* Prompts tried counter */}
           <div className="flex items-center gap-1 font-mono" title="Total prompts tried this session">
             <Hash className="w-3 h-3 opacity-60" />

@@ -58,7 +58,7 @@ export function AgentSwitcher({ onPick }: Props) {
                     <div className="text-[10px] text-theme-muted-foreground">{a.description}</div>
                     {disabled && (
                       <div className="mt-1 text-[10px] text-amber-400">
-                        Requires self-hosted G0DM0D3 API (skHermes, shellexec, etc.). Start it, or pick a browser-only agent.
+                        Requires self-hosted g0dm0d4 API (skHermes, shellexec, etc.). Start it, or pick a browser-only agent.
                       </div>
                     )}
                   </span>
