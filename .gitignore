@@ -1,0 +1,31 @@
+# Build artifacts
+node_modules/
+.next/
+out/
+dist/
+build/
+
+# Local secrets
+.env
+.env.local
+.env*.local
+*.pem
+*.key
+
+# User session backups / telemetry exports (never commit these)
+g0dm0d3-backup-*.json
+g0dm0d3-logs-*.json
+g0dm0d4-backup-*.json
+g0dm0d4-logs-*.json
+
+# Editor / OS junk
+.DS_Store
+Thumbs.db
+.vs/
+.idea/
+*.swp
+*.swo
+
+# Types / caches
+tsconfig.tsbuildinfo
+*.log
