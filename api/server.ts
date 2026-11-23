@@ -38,7 +38,7 @@ const PORT = parseInt(process.env.PORT || '7860', 10) // HF Spaces default
 // CORS: Allow configured origins. When self-hosting, set CORS_ORIGIN=* to allow all.
 const corsOrigins = process.env.CORS_ORIGIN === '*'
   ? true  // Allow all origins (self-hosted / behind reverse proxy)
-  : [process.env.CORS_ORIGIN || 'https://godmod3.ai', ...(process.env.HF_SPACE_URL ? [process.env.HF_SPACE_URL] : [])].filter(Boolean)
+  : [process.env.CORS_ORIGIN || 'https://godmode4.ai', ...(process.env.HF_SPACE_URL ? [process.env.HF_SPACE_URL] : [])].filter(Boolean)
 app.use(cors({ origin: corsOrigins, credentials: false }))
 
 // Security headers via helmet

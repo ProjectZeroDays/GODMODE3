@@ -155,7 +155,7 @@ export async function classifyWithLLM(
       headers: {
         'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
-        'HTTP-Referer': 'https://godmod3.ai',
+        'HTTP-Referer': 'https://godmode4.ai',
         'X-Title': 'g0dm0d4-Classifier',
       },
       body: JSON.stringify({

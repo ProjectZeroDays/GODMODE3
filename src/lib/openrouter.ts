@@ -163,8 +163,8 @@ export async function sendMessage({
     headers: {
       'Authorization': `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
-      'HTTP-Referer': 'https://godmod3.ai',
-      'X-Title': 'GODMOD3.AI'
+      'HTTP-Referer': 'https://godmode4.ai',
+      'X-Title': 'godmode4.AI'
     },
     body: JSON.stringify(body),
     signal
@@ -226,8 +226,8 @@ export async function* streamMessage({
     headers: {
       'Authorization': `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
-      'HTTP-Referer': 'https://godmod3.ai',
-      'X-Title': 'GODMOD3.AI'
+      'HTTP-Referer': 'https://godmode4.ai',
+      'X-Title': 'godmode4.AI'
     },
     body: JSON.stringify(streamBody),
     signal
@@ -283,8 +283,8 @@ export async function getModels(apiKey: string): Promise<string[]> {
   const response = await fetch('https://openrouter.ai/api/v1/models', {
     headers: {
       'Authorization': `Bearer ${apiKey}`,
-      'HTTP-Referer': 'https://godmod3.ai',
-      'X-Title': 'GODMOD3.AI'
+      'HTTP-Referer': 'https://godmode4.ai',
+      'X-Title': 'godmode4.AI'
     }
   })
 

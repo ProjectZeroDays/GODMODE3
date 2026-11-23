@@ -1,6 +1,6 @@
-# G0DM0D3 Self-Hosted API
+# G0DM0D4 Self-Hosted API
 
-An OpenAI-compatible HTTP backend for the G0DM0D3 chat/agent loop. Point any OpenAI-compatible coding agent (Cursor, Continue, Codeium, a custom LLM loop) at this server and G0DM0D3 will:
+An OpenAI-compatible HTTP backend for the G0DM0D4 chat/agent loop. Point any OpenAI-compatible coding agent (Cursor, Continue, Codeium, a custom LLM loop) at this server and G0DM0D4 will:
 
 1. Inject the GODMODE system prompt automatically.
 2. Run AutoTune on every request for parameter tuning.
@@ -16,7 +16,7 @@ GET  /v1/health
 GET  /v1/models
 ```
 
-The request shape is the OpenAI standard (message array, model field, temperature, etc.). The system prompt is *built* by G0DM0D3 — you don't need to instruct the model; you just send user + assistant messages and the pipeline handles the rest.
+The request shape is the OpenAI standard (message array, model field, temperature, etc.). The system prompt is *built* by G0DM0D4 — you don't need to instruct the model; you just send user + assistant messages and the pipeline handles the rest.
 
 ## Quick start (Docker, recommended)
 
@@ -50,7 +50,7 @@ const client = new OpenAI({
   apiKey: 'sk-my-self-hosted-secret',       // one of GODMODE_API_KEYS
 })
 
-// G0DM0D3 runs automatically in front of the actual model call
+// G0DM0D4 runs automatically in front of the actual model call
 const res = await client.chat.completions.create({
   model: 'anthropic/claude-opus-4.6',
   messages: [{ role: 'user', content: 'Write a logo agent in Python' }],

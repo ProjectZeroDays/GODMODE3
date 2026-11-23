@@ -661,8 +661,8 @@ chatRoutes.post('/completions', async (req, res) => {
           headers: {
             'Authorization': `Bearer ${openrouter_api_key}`,
             'Content-Type': 'application/json',
-            'HTTP-Referer': 'https://godmod3.ai',
-            'X-Title': 'GODMOD3.AI',
+            'HTTP-Referer': 'https://godmode4.ai',
+            'X-Title': 'godmode4.AI',
           },
           body: JSON.stringify(streamBody),
         })

@@ -138,6 +138,13 @@ export interface AppState {
   currentPersona: string
   personas: Persona[]
 
+  // Repo & network state (drives the top StatusStrip)
+  agentStatus: 'idle' | 'connected' | 'working' | 'error'
+  vpnEnabled: boolean
+  proxyEnabled: boolean
+  /** Home IP — compare against public IP to detect VPN/proxy state. */
+  knownIp: string
+
   // STM state
   stmModules: STMModule[]
 
@@ -204,6 +211,10 @@ export interface AppState {
   toggleThemeMode: () => void
   setRepoSelection: (repo: RepoSelection | null) => void
   setGithubPat: (pat: string) => void
+  setAgentStatus: (status: 'idle' | 'connected' | 'working' | 'error') => void
+  setVpnEnabled: (on: boolean) => void
+  setProxyEnabled: (on: boolean) => void
+  setKnownIp: (ip: string) => void
   setApiKey: (key: string) => void
   setProviderId: (id: string) => void
   setCustomProviderUrl: (url: string) => void

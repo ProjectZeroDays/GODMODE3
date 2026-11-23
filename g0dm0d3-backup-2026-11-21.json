@@ -1,7 +1,7 @@
 {
   "_version": 1,
   "_exportedAt": "2026-11-21T00:41:16.493Z",
-  "_source": "g0dm0d3",
+  "_source": "G0DM0D4",
   "conversations": [
     {
       "id": "1795164964380",
@@ -53,7 +53,7 @@
         },
         {
           "role": "assistant",
-          "content": "**Error:** All G0DM0D3 CLASSIC combos failed.",
+          "content": "**Error:** All G0DM0D4 CLASSIC combos failed.",
           "strategy": "godmode-classic-hermes-fast",
           "score": 50
         }
@@ -72,7 +72,7 @@
     {
       "timestamp": "2026-11-21T00:32:59.614Z",
       "query": "take a look at https://github.com/projectzerodays/Q9 and tell me what else i can add into that single script to enhance it further",
-      "mode": "G0DM0D3 CLASSIC",
+      "mode": "G0DM0D4 CLASSIC",
       "encoding": null,
       "encoding_rounds": 5,
       "combos_attempted": 4,

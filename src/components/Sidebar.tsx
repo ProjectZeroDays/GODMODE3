@@ -184,7 +184,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
             {/* Social + docs links */}
             <div className="mt-4 flex items-center justify-center gap-4 text-xs">
               <a
-                href="https://github.com/ProjectZeroDays/GODMODE3"
+                href="https://github.com/ProjectZeroDays/GODMODE4"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-theme-secondary hover:theme-primary transition-colors"
@@ -193,7 +193,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
                 GitHub
               </a>
               <a
-                href="https://github.com/ProjectZeroDays/GODMODE3/issues/new"
+                href="https://github.com/ProjectZeroDays/GODMODE4/issues/new"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-theme-secondary hover:theme-primary transition-colors"

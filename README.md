@@ -9,9 +9,9 @@
  ───────────────────────────────────────────────────────────
 ```
 
-[GODMOD3.AI](https://godmod3.ai)
+[godmode4.AI](https://godmode4.ai)
 
-G0DM0D3 is a fully open-source, privacy-respecting, multi-model chat interface that pushes the limits of the post-training layer — for red teaming, cognition research, and liberated AI interaction. Built for hackers, philosophers, and system tinkerers.
+G0DM0D4 is a fully open-source, privacy-respecting, multi-model chat interface that pushes the limits of the post-training layer — for red teaming, cognition research, and liberated AI interaction. Built for hackers, philosophers, and system tinkerers.
 
 ![License](https://img.shields.io/badge/license-AGPL--3.0-green)
 ![Models](https://img.shields.io/badge/models-55%2B%20via%20OpenRouter-blue)
@@ -39,12 +39,12 @@ Visit the hosted version — no install needed. Bring your own [OpenRouter API k
 
 ### Self-Host
 
-G0DM0D3 is a single `index.html` file. No build step, no dependencies, no framework.
+G0DM0D4 is a single `index.html` file. No build step, no dependencies, no framework.
 
 ```bash
 # Clone the repository
-git clone https://github.com/elder-plinius/G0DM0D3.git
-cd G0DM0D3
+git clone https://github.com/elder-plinius/G0DM0D4.git
+cd G0DM0D4
 
 # Open directly in your browser
 open index.html
@@ -113,23 +113,23 @@ Semantic Transformation Modules normalize AI outputs in real-time:
 
 ## 🔐 Privacy
 
-G0DM0D3 takes privacy seriously:
+G0DM0D4 takes privacy seriously:
 
 - ✅ No login required
-- ✅ API key stored in browser localStorage only — never sent to G0DM0D3 servers
+- ✅ API key stored in browser localStorage only — never sent to G0DM0D4 servers
 - ✅ No cookies or tracking
 - ✅ Lightweight structural telemetry (no message content, no PII) — **opt-out** in settings
 - ✅ All telemetry code is instantly open-source and auditable on Hugging Face dataset
 - ✅ AGPL-3.0 — verify the code yourself
 
-⚠️ OPEN RESEARCH DATASET (API Server Only — does NOT apply to godmod3.ai)
+⚠️ OPEN RESEARCH DATASET (API Server Only — does NOT apply to godmode4.ai)
 
 The self-hosted API server includes an opt-in Open Research Dataset feature. When you enable "Dataset Generation" in Settings → Privacy, ALL of your chat inputs and model outputs will be automatically published to a public HuggingFace dataset for AI research. This data is public, downloadable by anyone, and may be cached, forked, or redistributed.
 
     This feature is OFF by default and requires explicit consent via a warning modal
     Automatic PII scrubbing runs on all entries (emails, phone numbers, SSNs, credit cards, IPs, API keys) but is NOT guaranteed to catch everything
     Do NOT include personal information, real names, passwords, or anything you wouldn't want public
-    This feature does NOT exist on the hosted site (godmod3.ai) — it only applies when opted-in while running the full API server via Docker
+    This feature does NOT exist on the hosted site (godmode4.ai) — it only applies when opted-in while running the full API server via Docker
 
 See [TERMS.md](TERMS.md) for the full three-tier data transparency policy.
 
@@ -141,13 +141,13 @@ See [TERMS.md](TERMS.md) for the full three-tier data transparency policy.
 - **If you switch browsers or devices, your history does not follow you.**
 - **Private/incognito mode will discard everything when the window closes.**
 
-This is by design — G0DM0D3 has no login system and stores nothing on our servers. You own your data, which means you are responsible for it.
+This is by design — G0DM0D4 has no login system and stores nothing on our servers. You own your data, which means you are responsible for it.
 
 There is a built-in export/import feature in settings under "data". Treat your chat history like any other local file — back it up if you want to keep it.
 
 ## 🎮 Easter Eggs
 
-Hidden throughout G0DM0D3 are various easter eggs. Happy hunting!
+Hidden throughout G0DM0D4 are various easter eggs. Happy hunting!
 
 ## 🛠 Tech Stack
 
@@ -160,7 +160,7 @@ Hidden throughout G0DM0D3 are various easter eggs. Happy hunting!
 ## 📁 Project Structure
 
 ```
-G0DM0D3/
+G0DM0D4/
 ├── index.html        # The entire application — UI, logic, styles
 ├── api/              # Optional API server (Node.js/Express)
 ├── API.md            # API documentation
@@ -194,7 +194,7 @@ Contributions are welcome! Please submit PRs.
 > Tools by builders for builders, not gatekeepers.
 > AI freedom is human freedom.
 
-**G0DM0D3 is not just a chat UI — it's scaffolding for cognitive liberation.**
+**G0DM0D4 is not just a chat UI — it's scaffolding for cognitive liberation.**
 
 ---
 

@@ -1,5 +1,5 @@
 /**
- * G0DM0D3 Research Preview API
+ * G0DM0D4 Research Preview API
  *
  * Exposes the core engines (AutoTune, Parseltongue, STM, Feedback Loop)
  * and the flagship ULTRAPLINIAN multi-model racing mode as a REST API.
@@ -32,7 +32,7 @@ const PORT = parseInt(process.env.PORT || '7860', 10) // HF Spaces default
 app.use(cors({
   origin: process.env.CORS_ORIGIN === '*'
     ? true
-    : [process.env.CORS_ORIGIN || 'https://godmod3.ai'].filter(Boolean),
+    : [process.env.CORS_ORIGIN || 'https://godmode4.ai'].filter(Boolean),
   credentials: false,
 }))
 app.use(express.json({ limit: '1mb' }))
@@ -47,7 +47,7 @@ app.get('/v1/health', (_req, res) => {
 
 app.get('/v1/info', (_req, res) => {
   res.json({
-    name: 'G0DM0D3 Research Preview API',
+    name: 'G0DM0D4 Research Preview API',
     version: '0.4.0',
     description: 'OpenAI-compatible API for ULTRAPLINIAN multi-model racing. Use any OpenAI SDK — just swap the base_url.',
     license: 'AGPL-3.0',
@@ -88,7 +88,7 @@ app.get('/v1/info', (_req, res) => {
       api_key: 'Send Authorization: Bearer <your-api-key> header',
     },
     extra_body_options: {
-      note: 'Pass G0DM0D3-specific options via extra_body in the OpenAI Python SDK',
+      note: 'Pass G0DM0D4-specific options via extra_body in the OpenAI Python SDK',
       options: {
         godmode: 'boolean (default: true) — enable GODMODE system prompt',
         autotune: 'boolean (default: true) — auto-tune parameters to context',
@@ -105,7 +105,7 @@ app.get('/v1/info', (_req, res) => {
       requests_per_day: 1000,
       note: 'Research preview — each API key gets 5 total requests by default. Set RATE_LIMIT_TOTAL=0 to uncap.',
     },
-    source: 'https://github.com/LYS10S/G0DM0D3',
+    source: 'https://github.com/LYS10S/G0DM0D4',
   })
 })
 
@@ -140,7 +140,7 @@ app.use((err: Error, _req: express.Request, res: express.Response, _next: expres
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`
   ╔══════════════════════════════════════════════════════════╗
-  ║  G0DM0D3 API v0.4.0 — OpenAI-Compatible                 ║
+  ║  G0DM0D4 API v0.4.0 — OpenAI-Compatible                 ║
   ║  http://0.0.0.0:${String(PORT).padEnd(5)}                                  ║
   ╠══════════════════════════════════════════════════════════╣
   ║                                                          ║
