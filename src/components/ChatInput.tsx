@@ -839,7 +839,7 @@ export function ChatInput() {
               rows={1}
               className="w-full px-4 py-3 pr-12 bg-theme-bg border border-theme-primary rounded-lg
                 resize-none focus:outline-none focus:glow-box
-                placeholder:theme-secondary disabled:opacity-50
+                placeholder:theme-secondary disabled:opacity-40 disabled:cursor-wait
                 transition-all duration-200"
               style={{ minHeight: '48px', maxHeight: '200px' }}
             />
